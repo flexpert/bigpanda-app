@@ -1,0 +1,30 @@
+<form id="newCommentForm" novalidate name="$ctrl.newCommentForm" class="comment-input-form" ng-submit="$ctrl.addComment()">
+  <fieldset>
+    <div class="form-group" form-show-errors>
+      <input name="newCommentEmail" type="email" class="comment-input-email form-control" placeholder="Email" ng-model="$ctrl.newComment.email" required>
+    </div>
+    <div class="form-group" form-show-errors>
+      <textarea name="newCommentMessage" class="comment-input-message form-control" placeholder="Message" ng-model="$ctrl.newComment.message" required></textarea>
+    </div>
+    <div class="comment-input-toolbar">
+      <button type="submit" ng-disabled="!$ctrl.newCommentForm.$valid" class="btn btn-bp-primary">Submit</button>
+    </div>
+  </fieldset>
+</form>
+<div class="comments-wrapper">
+  <div class="form-group comments-filter-group">
+    <input type="text" ng-disabled="!$ctrl.comments || !$ctrl.comments.length" ng-model="filterBy" class="comments-filter form-control" placeholder="Filter">
+  </div>
+  <div class="comments-list">
+    <ul>
+      <li ng-repeat="comment in $ctrl.comments | filter:filterBy track by $index ">
+        <img class="commenter-gravatr" ng-src="https://www.gravatar.com/avatar/{{comment.hash}}">
+        <div class="comment">
+          <span class="commenter-email">{{comment.email}}</span>
+          <span class="commenter-message">{{comment.message}}</span>
+        </div>
+      </li>
+    </ul>
+    <span ng-if="!!$ctrl.comments && !$ctrl.comments.length">No comments found</span>
+  </div>
+</div>
